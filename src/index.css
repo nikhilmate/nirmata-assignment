@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 300;
+  src: url('./assets/FuturaPT-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/FuturaPT-Book.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./assets/FuturaPT-Medium.woff2') format('woff2');
+}
+
+:root {
+  --blue: #3a86ff;
+  --blue-dark: #2879fc;
+  --red: #ff006e;
+  --orange: #fb5607;
+  --yellow: #ffbe0b;
+}
+
+@layer base {
+  html {
+    font-family: 'Futura PT', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-blue {
+    @apply bg-[var(--blue)] text-white font-medium rounded shadow-md hover:bg-[var(--blue-dark)] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+
+  .text-blue {
+    @apply text-[var(--blue)];
+  }
+
+  .bg-blue {
+    @apply bg-[var(--blue)];
+  }
+
+  .container-base {
+    @apply w-full max-w-[73rem] mx-auto px-6
+  }
+
+  .flex-table {
+    @apply flex flex-col items-start justify-start;
+  }
+  
+  .f-table-row {
+    @apply flex space-x-2 relative w-full justify-between h-full;
+  }
+
+  .f-table-cell {
+    @apply grow shrink basis-0 w-auto text-left flex items-center justify-start;
+  }
+
+  .f-table-head {
+    @apply text-black font-light text-xs uppercase;
+  }
+}
