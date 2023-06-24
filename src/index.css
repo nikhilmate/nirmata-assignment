@@ -67,6 +67,6 @@
   }
 
   .f-table-head {
-    @apply text-black font-light text-xs uppercase;
+    @apply text-black font-light text-xs uppercase select-none;
   }
 }
