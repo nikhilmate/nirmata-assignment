@@ -46,6 +46,10 @@
     @apply text-[var(--blue)];
   }
 
+  .text-yellow {
+    @apply text-[var(--yellow)];
+  }
+
   .bg-blue {
     @apply bg-[var(--blue)];
   }
@@ -59,14 +63,14 @@
   }
   
   .f-table-row {
-    @apply flex space-x-2 relative w-full justify-between h-full;
+    @apply relative flex justify-between w-full h-full space-x-2;
   }
 
   .f-table-cell {
-    @apply grow shrink basis-0 w-auto text-left flex items-center justify-start;
+    @apply flex items-center justify-start w-auto text-left grow shrink basis-0;
   }
 
   .f-table-head {
-    @apply text-black font-light text-xs uppercase select-none;
+    @apply text-xs font-light text-black uppercase select-none;
   }
 }

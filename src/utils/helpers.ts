@@ -1,5 +1,5 @@
 import { TPlayer } from "./getPlayers";
-import { ESortKeys, ESortOrder, IState } from "./types";
+import { Dictionary, ESortKeys, ESortOrder, IState } from "./types";
 
 export function getAge(timestamp: number):number {
   var today = new Date();
@@ -63,4 +63,40 @@ export function sortPlayers(players: any, filters: IState): TPlayer[] {
   }
 
   return __sortedArr
+}
+
+export function arabicToRoman(number: number):string {
+  let roman = "";
+  const romanNumList: Dictionary = { M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XV: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1 };
+  let a;
+  if (number < 1 || number > 3999)
+    return "Enter a number between 1 and 3999";
+  else {
+    for (let key in romanNumList) {
+      a = Math.floor(number / romanNumList[key]);
+      if (a >= 0) {
+        for (let i = 0; i < a; i++) {
+          roman += key;
+        }
+      }
+      number = number % romanNumList[key];
+    }
+  }
+
+  return roman;
+}
+
+export function beautifyDate(timestamp: number): string {
+  const date = new Date(timestamp)
+  const __inFormat = date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
+  return __inFormat
+}
+
+export function getPlayerSuggestions(players: TPlayer[], player: TPlayer) {
+  const { type, id } = player
+  return players.filter(oPlayer => oPlayer.type === type && oPlayer.id !== id)
 }

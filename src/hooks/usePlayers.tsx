@@ -10,10 +10,8 @@ function usePlayers() {
     try {
       setLoading(true)
       const players = await getPlayers()
-      setTimeout(() => {
-        setData(players)
-        setLoading(false)
-      }, 1000);
+      setData(players)
+      setLoading(false)
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message)

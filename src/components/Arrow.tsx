@@ -1,6 +1,6 @@
 import { ESortKeys, ESortOrder, IState } from "../utils/types";
-import DownArrow from '../assets/triangle-down.svg' 
-import UpArrow from '../assets/triangle-up.svg'
+import DownArrow from '../assets/icons/triangle-down.svg' 
+import UpArrow from '../assets/icons/triangle-up.svg'
 
 function Arrow({ filters, keyToMatch }: { filters: IState; keyToMatch: keyof typeof ESortKeys; }) {
   const { column: { key, order }} = filters
