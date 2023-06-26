@@ -100,3 +100,7 @@ export function getPlayerSuggestions(players: TPlayer[], player: TPlayer) {
   const { type, id } = player
   return players.filter(oPlayer => oPlayer.type === type && oPlayer.id !== id)
 }
+
+export function range(start: number, end: number): number[] {
+  return Array.from({ length: end - start + 1 }, (_, i) => i)
+}
