@@ -25,6 +25,7 @@
 
 :root {
   --blue: #3a86ff;
+  --light-blue: rgba(58, 134, 255, 0.3);
   --blue-dark: #2879fc;
   --red: #ff006e;
   --orange: #fb5607;
@@ -72,5 +73,9 @@
 
   .f-table-head {
     @apply text-xs font-light text-black uppercase select-none;
+  }
+
+  .btn-icon {
+    @apply inline-flex h-8 px-1 text-gray-600 bg-white rounded-sm shadow-btn cursor-pointer min-w-[2rem] justify-center items-center hover:bg-[var(--light-blue)] hover:text-black focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-opacity-75;
   }
 }

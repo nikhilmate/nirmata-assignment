@@ -31,10 +31,24 @@ export function sortPlayers(players: any, filters: IState): TPlayer[] {
   if (!players) return []
   let { search, column: { key, order } } = filters
   
-  let __order = key !== ESortKeys.Age ? order : order === ESortOrder.ASC ? ESortOrder.DESC : ESortOrder.ASC // *Note: reversing the order for age  
-  let __sortedArr = players.sort((aPlayer: any, bPlayer: any) => {
+  let __sortedArr = players,
+    __search = search.trim().toLowerCase()
+  
+  if (__search) {
+    __sortedArr = players.filter((player: any) => player?.name?.toLowerCase().indexOf(__search) > -1 || player?.type?.toLowerCase()?.indexOf(__search) > -1)
+  }
+  
+  // *Note: reversing the order for age
+  let __order = key !== ESortKeys.Age
+    ? order
+    : order === ESortOrder.ASC
+      ? ESortOrder.DESC
+      : ESortOrder.ASC
+  
+  let mappedKey = key === ESortKeys.Age ? 'dob' : key.toLowerCase()
+      
+  __sortedArr = __sortedArr.sort((aPlayer: any, bPlayer: any) => {
     
-    const mappedKey = key.toLowerCase()
     // & const playerKey = mappedKey as keyof TPlayer
     const aValue = aPlayer[mappedKey] ?? ""
     const bValue = bPlayer[mappedKey] ?? ""
@@ -56,11 +70,6 @@ export function sortPlayers(players: any, filters: IState): TPlayer[] {
   })
 
   // console.log(__sortedArr, filters)
-
-  let __search = search.trim().toLowerCase()
-  if (__search) {
-    __sortedArr = __sortedArr.filter((player: any) => player?.name?.toLowerCase().indexOf(__search) > -1 || player?.type?.toLowerCase()?.indexOf(__search) > -1)
-  }
 
   return __sortedArr
 }
@@ -99,4 +108,8 @@ export function beautifyDate(timestamp: number): string {
 export function getPlayerSuggestions(players: TPlayer[], player: TPlayer) {
   const { type, id } = player
   return players.filter(oPlayer => oPlayer.type === type && oPlayer.id !== id)
+}
+
+export function range(start: number, end: number): number[] {
+  return Array.from({ length: end - start + 1 }, (_, i) => i)
 }

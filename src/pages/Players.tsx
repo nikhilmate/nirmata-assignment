@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import Container from "../components/Container"
 import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
@@ -10,12 +11,21 @@ import SearchBar from "../components/SearchBar"
 import usePlayers from "../hooks/usePlayers"
 import Header from "../components/Header"
 import { Link } from 'wouter'
+import usePagination from "../hooks/usePagination"
+import { TPlayer } from "../utils/getPlayers"
+import Pagination from "../components/Pagination"
 
 function Players() {
   const { players, loading, error } = usePlayers()
 
   const { filters, setFilter } = useFilters({ localStore: getLocalStorage('filters') })
+
+  const sortedPlayers = useMemo(() => {
+    return sortPlayers(players, filters)
+  }, [players, filters])
   
+  const { offset, setNext, jumpToOffset, setPrevious, noOfPages, items } = usePagination<TPlayer>({ data: sortedPlayers })
+
   const columnClickHandler = (columnKey: keyof typeof ESortKeys) => {
     let { key, order } = filters.column
     if (key === columnKey) {
@@ -26,9 +36,8 @@ function Players() {
     setFilter({ type: EActions.setStore, payload: Object.assign(filters, { column: { key: columnKey, order } })})
   }
 
-  const sortedPlayers = sortPlayers(players, filters)
-
   // console.log('sortedPlayers', sortedPlayers, filters)
+  // console.log(offset, noOfPages, items)
 
   return (
     <>
@@ -47,7 +56,7 @@ function Players() {
             {/* table head */}
             <div className="w-full bg-[#fafafa] h-10 shrink-0 sticky left-0 top-26">
               <Container className="h-full f-table-row">
-                <div className="f-table-cell f-table-head min-w-[20rem] cursor-pointer" onClick={() => columnClickHandler(ESortKeys.Name)}>
+                <div className="f-table-cell f-table-head min-w-[10rem] md:min-w-[15rem] lg:min-w-[20rem] cursor-pointer" onClick={() => columnClickHandler(ESortKeys.Name)}>
                   <span>{ESortKeys.Name}</span>
                   <Arrow filters={filters} keyToMatch={ESortKeys.Name} />
                 </div>
@@ -78,10 +87,10 @@ function Players() {
                   ? <Status status={'No matching data found.'} />
                   : null}
 
-                {sortedPlayers.map((player, index) => (
-                  <div key={player?.name ? player.name : index+1} className="shadow-sm h-14">
+                {items.map((player, index) => (
+                  <div key={player?.name ? player.name : index+1} className="shadow-row h-14">
                     <Container className="h-full f-table-row">
-                      <div className="f-table-cell min-w-[20rem]">
+                      <div className="f-table-cell min-w-[10rem] md:min-w-[15rem] lg:min-w-[20rem]">
                         {player?.name ?  
                           player.id ?
                             <Link href={`/${player.id}`} className="text-base font-medium text-blue">
@@ -102,8 +111,14 @@ function Players() {
           </section>
 
           <footer className="h-12">
-            <Container className="flex h-full place-items-center">
-
+            <Container className="flex h-full place-items-center gap-x-2">
+              <Pagination
+                offset={offset}
+                setNext={setNext}
+                jumpToOffset={jumpToOffset}
+                setPrevious={setPrevious}
+                noOfPages={noOfPages}
+              />
             </Container>
           </footer>
         </>

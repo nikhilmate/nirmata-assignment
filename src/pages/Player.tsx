@@ -83,7 +83,7 @@ function Player() {
             {suggestions && suggestions.length ?
               <div className="mt-8">
                 <p className="text-xl text-gray-600 text-medium">More {player && player.type ? EType[player.type] : 'player'}s...</p>
-                <div className="grid grid-cols-2 pb-10 mt-6 md:grid-cols-3 gap-x-6 gap-y-6">
+                <div className="grid grid-rows-1 pb-10 mt-6 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
                   {suggestions.map(sPlayer => (
                     <Link href={`/${sPlayer.id}`} key={sPlayer.id} className="flex p-4 pt-6 border border-gray-300 rounded-lg shadow-md cursor-pointer shrink-0 gap-x-4">
                       <div className="flex flex-col items-center h-auto shrink-0">
@@ -93,8 +93,8 @@ function Player() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-[1.5rem] leading-[0.8] truncate font-medium text-gray-600">{sPlayer.name ? sPlayer.name : '—'}</h3>
-                        <p className="mt-3">
+                        <h3 className="text-[1.5rem] font-medium text-gray-600">{sPlayer.name ? sPlayer.name : '—'}</h3>
+                        <p>
                           <span className="text-gray-500">Points:</span>&nbsp;
                           <span>{sPlayer.points ? sPlayer.points : '—'}</span>
                         </p>
