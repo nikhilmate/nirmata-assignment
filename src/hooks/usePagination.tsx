@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo } from "react"
+import { useCallback, useState, useMemo } from "react"
 
 type TOutput<DataType> = { items: DataType[], offset: number, setNext: () => void, setPrevious: () => void, noOfPages: number, jumpToOffset: (N: number) => void }
 function usePagination<DataType>({ data, limit = 10 }: { data: DataType[], limit?: number }): TOutput<DataType> {
@@ -22,7 +22,6 @@ function usePagination<DataType>({ data, limit = 10 }: { data: DataType[], limit
   }, [noOfPages])
 
   const items = (function() {
-    console.log('inside', data)
     const firstIndex = offset * limit
     return data.slice(firstIndex, firstIndex + limit)
   })()
