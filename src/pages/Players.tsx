@@ -56,7 +56,7 @@ function Players() {
             {/* table head */}
             <div className="w-full bg-[#fafafa] h-10 shrink-0 sticky left-0 top-26">
               <Container className="h-full f-table-row">
-                <div className="f-table-cell f-table-head min-w-[20rem] cursor-pointer" onClick={() => columnClickHandler(ESortKeys.Name)}>
+                <div className="f-table-cell f-table-head min-w-[10rem] md:min-w-[15rem] lg:min-w-[20rem] cursor-pointer" onClick={() => columnClickHandler(ESortKeys.Name)}>
                   <span>{ESortKeys.Name}</span>
                   <Arrow filters={filters} keyToMatch={ESortKeys.Name} />
                 </div>
@@ -90,7 +90,7 @@ function Players() {
                 {items.map((player, index) => (
                   <div key={player?.name ? player.name : index+1} className="shadow-row h-14">
                     <Container className="h-full f-table-row">
-                      <div className="f-table-cell min-w-[20rem]">
+                      <div className="f-table-cell min-w-[10rem] md:min-w-[15rem] lg:min-w-[20rem]">
                         {player?.name ?  
                           player.id ?
                             <Link href={`/${player.id}`} className="text-base font-medium text-blue">
